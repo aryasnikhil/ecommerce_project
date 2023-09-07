@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+{% if category %}
+    {{category.description|truncatewords:155}}
+{% else %}
+    Welcome to RON Mart where you can buy anything...
+{% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{category.name}} - RON Mart
+    {% else %}
+        New Arrivals...
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+    <div>
+        <div>
+            <p><a href="{% url 'mart:allprodcat' %}>"> 'Our Products' </a></p>
+        </div>
+    </div>
+    {% endif %}
+<div>
+    {% if category %}
+    <img src="{{category.img.url}}" alt="{{category.name}}">
+</div>
+    <br>
+<div>
+        <h1>{{category.name}}</h1>
+        <p>{{category.description}}</p>
+</div>
+    {% else %}
+<div>
+    <img src="{% static 'img/banner.png' %}" alt="Our products">
+</div>
+<br>
+<div>
+    <h1>Our products</h1>
+    <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+</div>
+    {% endif %}
+<div>
+    <div>
+        {% for products in product %}
+        <div>
+            <div>
+               <a href=""><img src="{{product.image.url}}" alt="{{product.name}}"></a>
+                <div>
+                    <h4>{{product.name}}</h4>
+                    <p>{{product.price}}</p>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
